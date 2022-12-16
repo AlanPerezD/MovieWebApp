@@ -1,29 +1,66 @@
-import './App.css';
+import { useEffect} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
-  );
+import './App.css';
+// import SearchIcon from './search.svg';
+
+const API_URL = 'api_key';
+
+const movie1 = {
+  "Title": "Amazing Spiderman Syndrome",
+  "Year": "2012",
+  "imdbID": "tt2586634",
+  "Type": "movie",
+  "Poster": "N/A"
+}
+
+const App = () => {
+
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`);
+        const data = await response.json();
+
+        console.log(data.Search);
+    }
+
+    useEffect(() => {
+        searchMovies('Spiderman');
+    }, []);
+
+    return (
+        <div className='app'>
+            <h1>MovieLand</h1>
+            
+            <div className='search'>
+                <input
+                    placeholder="search for movies"
+                    value="Superman"
+                    onChange={() => {}}
+                />
+                <image 
+                    src={"SearchIcon"}
+                    alt="search"
+                    onClick={() => {}}
+                />
+            </div>
+
+          <div className='container'>
+            <div className='movie'>
+              <div>
+                <p>{movie1.Year}</p>
+              </div>
+
+              <div>
+                <img src={movie1.Poster !== 'N/A' ? movie1.Poster : 'https://via.placeholder.com/400'} alt={movie1.Title}/>
+              </div>
+
+              <div>
+                <span>{movie1.Type}</span>
+                <h3>{movie1.Title}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+    );
 }
 
 export default App;
